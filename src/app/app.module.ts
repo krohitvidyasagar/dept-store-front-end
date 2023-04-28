@@ -19,6 +19,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { ProductsHeaderComponent } from './pages/home/components/products-header/products-header.component';
 import { ProductBoxComponent } from './pages/home/components/product-box/product-box.component';
@@ -42,6 +44,7 @@ import { StoreService } from './services/store.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    
     MatSidenavModule,
     MatGridListModule,
     MatMenuModule,
@@ -55,6 +58,9 @@ import { StoreService } from './services/store.service';
     MatTableModule,
     MatBadgeModule,
     MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule,
+
     BrowserAnimationsModule,
     HttpClientModule,
   ],
