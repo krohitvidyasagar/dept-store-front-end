@@ -28,4 +28,12 @@ export class StoreService {
       `${STORE_BASE_URL}/products/categories`
     );
   }
+
+  getAllDepartments() {
+    return this.httpClient.get('/api/department');
+  }
+
+  getNewProducts() {
+    return this.httpClient.get('/api/product');
+  }
 }

@@ -18,6 +18,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   sort = 'desc';
   category: string | undefined;
   productsSubscription: Subscription | undefined;
+  
+  newProductsSubscription: Subscription | undefined;
+  newProducts: any;
 
   constructor(
     private cartService: CartService,
@@ -26,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProducts();
+    this.getNewProducts();
   }
 
   onColumnsCountChange(colsNum: number): void {
@@ -54,6 +58,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((_products) => {
         this.products = _products;
       });
+  }
+
+  getNewProducts(): void {
+    this.newProductsSubscription = this.storeService.getNewProducts().subscribe(
+      (newProducts) => { this.newProducts = newProducts }
+    )
   }
 
   onAddToCart(product: Product): void {

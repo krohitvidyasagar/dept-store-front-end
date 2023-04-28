@@ -1,10 +1,17 @@
-<mat-expansion-panel *ngIf="categories">
+<mat-expansion-panel *ngIf="departments">
   <mat-expansion-panel-header>
-    <mat-panel-title> CATEGORIES </mat-panel-title>
+    Departments
   </mat-expansion-panel-header>
-  <mat-selection-list [multiple]="false">
-    <mat-list-option *ngFor="let category of categories" [value]="category">
-      <button (click)="onShowCategory(category)">{{ category }}</button>
-    </mat-list-option>
-  </mat-selection-list>
+
+  <mat-expansion-panel *ngFor="let dept of departments">
+    <mat-expansion-panel-header>
+      {{ dept['name'] }}
+    </mat-expansion-panel-header>
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let subcategory of dept['subcategories']">
+        <button (click)="onSubcategoryChange(subcategory['subcategory_number'])">{{ subcategory['name'] }}</button>
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-expansion-panel>
+
 </mat-expansion-panel>
