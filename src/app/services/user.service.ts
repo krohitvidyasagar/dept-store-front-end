@@ -17,6 +17,10 @@ export class UserService {
     return this.httpClient.post('/api/login', {"email": username, "password": password});
   }
 
+  register(user: any): Observable<any> {
+    return this.httpClient.post('/api/register', user);
+  }
+
   loggedIn() {
     this._userSource.next(true);
   }
