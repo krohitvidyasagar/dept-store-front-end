@@ -13,14 +13,12 @@ const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 350 };
 export class HomeComponent implements OnInit, OnDestroy {
   cols = 3;
   rowHeight: number = ROWS_HEIGHT[this.cols];
-  products: Array<Product> | undefined;
   count = '12';
   sort = 'desc';
-  category: string | undefined;
-  productsSubscription: Subscription | undefined;
+  category: number | undefined;
   
-  newProductsSubscription: Subscription | undefined;
-  newProducts: any;
+  productsSubscription: Subscription | undefined;
+  products: any;
 
   constructor(
     private cartService: CartService,
@@ -28,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getProducts();
+    // this.getProducts();
     this.getNewProducts();
   }
 
@@ -39,30 +37,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onItemsCountChange(count: number): void {
     this.count = count.toString();
-    this.getProducts();
   }
 
   onSortChange(newSort: string): void {
     this.sort = newSort;
-    this.getProducts();
   }
 
-  onShowCategory(newCategory: string): void {
+  onChangeSubcategory(newCategory: number): void {
     this.category = newCategory;
-    this.getProducts();
-  }
-
-  getProducts(): void {
-    this.productsSubscription = this.storeService
-      .getAllProducts(this.count, this.sort, this.category)
-      .subscribe((_products) => {
-        this.products = _products;
-      });
+    this.getNewProducts();
   }
 
   getNewProducts(): void {
-    this.newProductsSubscription = this.storeService.getNewProducts().subscribe(
-      (newProducts) => { this.newProducts = newProducts }
+    this.productsSubscription = this.storeService.getNewProducts(this.category).subscribe(
+      (newProducts) => { this.products = newProducts }
     )
   }
 
