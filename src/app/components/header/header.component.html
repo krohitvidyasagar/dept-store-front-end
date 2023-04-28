@@ -6,6 +6,9 @@
     <input matInput type="text" (keyup)="onKey($event)">
   </mat-form-field>
 
+  <a mat-button routerLink="/login" *ngIf="!user">Login</a>
+  <a mat-button routerLink="/orders" *ngIf="user">{{user}}</a>
+
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon
       [matBadge]="itemsQuantity"
