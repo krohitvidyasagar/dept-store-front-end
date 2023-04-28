@@ -33,7 +33,7 @@ export class StoreService {
     return this.httpClient.get('/api/department');
   }
 
-  getNewProducts() {
-    return this.httpClient.get('/api/product');
+  getNewProducts(subcategory?: number) {
+    return this.httpClient.get(`/api/product${subcategory ? '?subcategory_number=' + subcategory: ''}`);
   }
 }
