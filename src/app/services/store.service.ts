@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Product } from '../models/product.model';
 
 const STORE_BASE_URL = 'https://fakestoreapi.com';
@@ -9,31 +9,26 @@ const STORE_BASE_URL = 'https://fakestoreapi.com';
   providedIn: 'root',
 })
 export class StoreService {
+
+  private _productNameSource = new Subject<string>();
+
+  productName$ = this._productNameSource.asObservable();
+  
   constructor(private httpClient: HttpClient) {}
-
-  getAllProducts(
-    limit = '12',
-    sort = 'desc',
-    category?: string
-  ): Observable<Array<Product>> {
-    return this.httpClient.get<Array<Product>>(
-      `${STORE_BASE_URL}/products${
-        category ? '/category/' + category : ''
-      }?sort=${sort}&limit=${limit}`
-    );
-  }
-
-  getAllCategories(): Observable<Array<string>> {
-    return this.httpClient.get<Array<string>>(
-      `${STORE_BASE_URL}/products/categories`
-    );
-  }
 
   getAllDepartments() {
     return this.httpClient.get('/api/department');
   }
 
-  getNewProducts(subcategory?: number) {
+  getProducts(subcategory?: number, name?: string) {
     return this.httpClient.get(`/api/product${subcategory ? '?subcategory_number=' + subcategory: ''}`);
+  }
+
+  getProductsByName(name: string, subcategory?: number) {
+    return this.httpClient.get(`/api/product?name=${name}&${subcategory ? 'subcategory_number=' + subcategory: ''}`);
+  }
+
+  searchProducts(productName: string) {
+    this._productNameSource.next(productName);
   }
 }

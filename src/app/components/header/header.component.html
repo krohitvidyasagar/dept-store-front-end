@@ -1,5 +1,11 @@
 <mat-toolbar class="justify-between max-w-7xl mx-auto border-x">
-  <a routerLink="home">Code with Sloba store</a>
+  <a routerLink="home">Finders Keepers</a>
+  
+  <mat-form-field class="example-form-field">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" (keyup)="onKey($event)">
+  </mat-form-field>
+
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon
       [matBadge]="itemsQuantity"

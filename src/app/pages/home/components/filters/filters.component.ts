@@ -18,12 +18,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
   constructor(private storeService: StoreService) {}
 
   ngOnInit(): void {
-    this.categoriesSubscription = this.storeService
-      .getAllCategories()
-      .subscribe((response: Array<string>) => {
-        this.categories = response;
-      });
-
     this.departmentsSubscription = this.storeService.
     getAllDepartments().subscribe((response) => {
       this.departments = response;

@@ -26,8 +26,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.getProducts();
-    this.getNewProducts();
+    this.getProducts();
+
+    this.storeService.productName$.subscribe((prodName) => { 
+      this.getProductsByName(prodName);
+     });
   }
 
   onColumnsCountChange(colsNum: number): void {
@@ -45,11 +48,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onChangeSubcategory(newCategory: number): void {
     this.category = newCategory;
-    this.getNewProducts();
+    this.getProducts();
   }
 
-  getNewProducts(): void {
-    this.productsSubscription = this.storeService.getNewProducts(this.category).subscribe(
+  getProducts(): void {
+    this.productsSubscription = this.storeService.getProducts(this.category).subscribe(
+      (newProducts) => { this.products = newProducts }
+    )
+  }
+
+  getProductsByName(productName: string): void {
+    this.productsSubscription = this.storeService.getProductsByName(productName, this.category).subscribe(
       (newProducts) => { this.products = newProducts }
     )
   }
