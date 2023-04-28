@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ecommerce-store": {
+    "dept-store-front-end": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ecommerce-store",
+            "outputPath": "dist/dept-store-front-end",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,12 +71,16 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dept-store-front-end:build:development",
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "ecommerce-store:build:production"
+              "browserTarget": "dept-store-front-end:build:production"
             },
             "development": {
-              "browserTarget": "ecommerce-store:build:development"
+              "browserTarget": "dept-store-front-end:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ecommerce-store:build"
+            "browserTarget": "dept-store-front-end:build"
           }
         },
         "test": {
@@ -108,5 +112,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
