@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { Product } from '../models/product.model';
-
-const STORE_BASE_URL = 'https://fakestoreapi.com';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
