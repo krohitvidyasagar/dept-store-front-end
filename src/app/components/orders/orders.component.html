@@ -1,0 +1,42 @@
+<table mat-table [dataSource]="orders" class="mat-elevation-z8">
+
+    <!-- Order Number Column -->
+    <ng-container matColumnDef="orderNumber">
+      <th mat-header-cell *matHeaderCellDef> Order Number </th>
+      <td mat-cell *matCellDef="let order"> {{order['order_number']}} </td>
+    </ng-container>
+  
+    <!-- Order Date Column -->
+    <ng-container matColumnDef="orderDate">
+      <th mat-header-cell *matHeaderCellDef> Order Date </th>
+      <td mat-cell *matCellDef="let order"> {{order['created_at'] | date:'yyyy-MM-dd HH:mm'}} </td>
+    </ng-container>
+  
+    <!-- Pickup Column -->
+    <ng-container matColumnDef="pickup">
+      <th mat-header-cell *matHeaderCellDef> Pickup </th>
+      <td mat-cell *matCellDef="let order"> {{order['is_pickup'] ? 'Yes': 'No'}} </td>
+    </ng-container>
+  
+    <!-- Address Name Column -->
+    <ng-container matColumnDef="addressName">
+      <th mat-header-cell *matHeaderCellDef> Address Name </th>
+      <td mat-cell *matCellDef="let order"> {{order['address']?.['name']}} </td>
+    </ng-container>
+
+    <!-- Total Cost Column -->
+    <ng-container matColumnDef="payment">
+      <th mat-header-cell *matHeaderCellDef> Payment </th>
+      <td mat-cell *matCellDef="let order"> {{order['payment']['payment_method_name']}} </td>
+    </ng-container>
+  
+    <!-- Total Cost Column -->
+    <ng-container matColumnDef="totalCost">
+      <th mat-header-cell *matHeaderCellDef> Total Cost </th>
+      <td mat-cell *matCellDef="let order"> {{order['total_cost']}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>
+  

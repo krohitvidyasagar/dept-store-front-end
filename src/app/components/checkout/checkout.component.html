@@ -11,12 +11,16 @@
     <section class="checkout-section" *ngIf="addresses && addresses.length > 0">
       <h2 class="checkout-section-title">Select an existing address</h2>
       <div class="form-group">
-        <label for="existingAddress">Address</label>
-        <select id="existingAddress" class="form-select">
-          <option value="">-- Select an address --</option>
-          <option *ngFor="let address of addresses" value="address.id" (click)="chooseAddress(address.id)">{{address.name}}</option>
-        </select>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <mat-select [(ngModel)]="addressId" name="selectedAddress">
+            <mat-option value="">-- Select an address --</mat-option>
+            <mat-option *ngFor="let address of addresses" [value]="address.id">{{ address.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
+
+
     </section>
 
     <section class="checkout-section">

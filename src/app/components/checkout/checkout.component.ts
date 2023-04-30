@@ -82,7 +82,7 @@ export class CheckoutComponent implements OnInit {
     let pickpUp = (this.deliveryOption === 'pickup')? true: false;
 
     this.cartService.placeOrder(pickpUp, this.addressId, address, paymentInfo).subscribe((response) => {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/orders');
 
       this.cartService.clearCart();
 
