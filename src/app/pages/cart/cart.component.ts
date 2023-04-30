@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
-import { loadStripe } from '@stripe/stripe-js';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -21,14 +21,17 @@ export class CartComponent implements OnInit, OnDestroy {
   ];
   dataSource: CartItem[] = [];
   cartSubscription: Subscription | undefined;
+  user: string | any;
 
-  constructor(private cartService: CartService, private http: HttpClient) {}
+  constructor(private cartService: CartService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.cartSubscription = this.cartService.cart.subscribe((_cart: Cart) => {
       this.cart = _cart;
       this.dataSource = _cart.items;
     });
+
+    this.user = sessionStorage.getItem('user');
   }
 
   getTotal(items: CartItem[]): number {
@@ -52,16 +55,18 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onCheckout(): void {
-    this.http
-      .post('http://localhost:4242/checkout', {
-        items: this.cart.items,
+    let product_array: Array<any> = []
+
+    for(let i=0; i<this.cart.items.length; i++) {
+      product_array.push({
+        "product_id": this.cart.items[i].id,
+        "quantity": this.cart.items[i].quantity
       })
-      .subscribe(async (res: any) => {
-        let stripe = await loadStripe('your token');
-        stripe?.redirectToCheckout({
-          sessionId: res.id,
-        });
-      });
+    }
+
+    this.cartService.updateCart(product_array).subscribe((response) => {
+      this.router.navigateByUrl('/checkout')
+    });
   }
 
   ngOnDestroy() {
