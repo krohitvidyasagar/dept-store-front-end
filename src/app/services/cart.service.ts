@@ -115,12 +115,24 @@ export class CartService {
       this.authHeader = this.getAuthHeader()
     }
 
-    let body = {
+    let body: any = {
       'pickup': pickup,
-      'address_id': addressId,
       'address': address,
       'payment': paymentInformation
     }
+ 
+    if (addressId && addressId.length > 0) {
+      body['address_id'] = addressId
+    }
+    
     return this.httpClient.post('/api/order', body, this.authHeader);
+  }
+
+  listOrders() {
+    if (!this.authHeader) {
+      this.authHeader = this.getAuthHeader()
+    }
+
+    return this.httpClient.get('/api/order', this.authHeader)
   }
 }

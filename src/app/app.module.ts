@@ -23,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -49,6 +50,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { UserService } from './services/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 
 registerLocaleData(en);
@@ -64,7 +66,8 @@ registerLocaleData(en);
     CartComponent,
     LoginComponent,
     RegistrationComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +89,7 @@ registerLocaleData(en);
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
+    MatSelectModule,
 
     NzProgressModule,
     NzInputModule,
