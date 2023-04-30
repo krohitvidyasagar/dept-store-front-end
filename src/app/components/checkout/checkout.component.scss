@@ -1,0 +1,146 @@
+/* checkout.component.css */
+.checkout-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+.checkout-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.checkout-section {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.checkout-section-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.form-select {
+  font-size: 16px;
+  padding: 5px;
+  width: 100%;
+}
+
+.form-control {
+  font-size: 16px;
+  padding: 5px;
+  width: 100%;
+  background-color: wheat;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.form-row .form-group {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.table th {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #f7f7f7;
+  text-align: left;
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.table td {
+  font-size: 16px;
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.table tfoot td {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #f7f7f7;
+  text-align: left;
+  padding: 10px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.btn-primary {
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+  color: #fff;
+}
+
+.btn-primary:active {
+  background-color: #0062cc;
+  border-color: #005cbf;
+  color: #fff;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+@media (max-width: 576px) {
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .form-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .form-select,
+  .form-control {
+    font-size: 14px;
+    padding: 3px;
+  }
+
+  .table th,
+  .table td {
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  .btn-primary {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  button:disabled {
+    background-color: #97929248;
+    cursor: not-allowed;
+  }
+}

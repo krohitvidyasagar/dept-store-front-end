@@ -17,7 +17,7 @@ export class StoreService {
     return this.httpClient.get('/api/department');
   }
 
-  getProducts(subcategory?: number, name?: string) {
+  getProducts(subcategory?: number) {
     return this.httpClient.get(`/api/product${subcategory ? '?subcategory_number=' + subcategory: ''}`);
   }
 

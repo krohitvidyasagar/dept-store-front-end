@@ -1,5 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Cart, CartItem } from '../models/cart.model';
 
@@ -8,8 +10,9 @@ import { Cart, CartItem } from '../models/cart.model';
 })
 export class CartService {
   cart = new BehaviorSubject<Cart>({ items: [] });
+  authHeader: any;
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar, private httpClient: HttpClient) {}
 
   addToCart(item: CartItem): void {
     const items = [...this.cart.value.items];
@@ -75,5 +78,49 @@ export class CartService {
     return items
       .map((item) => item.price * item.quantity)
       .reduce((prev, current) => prev + current, 0);
+  }
+
+  getAuthHeader() {
+    let authToken = sessionStorage.getItem('access');
+      
+      let headers_object = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + authToken
+      })
+
+      return {
+        headers: headers_object
+      }
+  }
+
+  updateCart(cart_products: Array<any>): Observable<object> {
+
+    if (!this.authHeader) {
+      this.authHeader = this.getAuthHeader()
+    }
+
+    return this.httpClient.put('api/cart', cart_products, this.authHeader);
+  } 
+
+
+  getCartProducts(): Observable<any> {
+    if (!this.authHeader) {
+      this.authHeader = this.getAuthHeader()
+    }
+    return this.httpClient.get('/api/cart', this.authHeader);
+  }
+
+  placeOrder(pickup: boolean, addressId: string, address: object, paymentInformation: object): Observable<any> {
+    if (!this.authHeader) {
+      this.authHeader = this.getAuthHeader()
+    }
+
+    let body = {
+      'pickup': pickup,
+      'address_id': addressId,
+      'address': address,
+      'payment': paymentInformation
+    }
+    return this.httpClient.post('/api/order', body, this.authHeader);
   }
 }

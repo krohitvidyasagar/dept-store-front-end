@@ -1,0 +1,110 @@
+<!-- checkout.component.html -->
+<div class="checkout-container">
+  <h1 class="checkout-title">Checkout</h1>
+
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="deliveryOption">
+    <mat-radio-button name="delivery-option" value="pickup" checked>Pickup</mat-radio-button>
+    <mat-radio-button name="delivery-option" value="delivery">Delivery</mat-radio-button>
+  </mat-radio-group>
+
+  <div [hidden]="deliveryOption !== 'delivery'">
+    <section class="checkout-section" *ngIf="addresses && addresses.length > 0">
+      <h2 class="checkout-section-title">Select an existing address</h2>
+      <div class="form-group">
+        <label for="existingAddress">Address</label>
+        <select id="existingAddress" class="form-select">
+          <option value="">-- Select an address --</option>
+          <option *ngFor="let address of addresses" value="address.id" (click)="chooseAddress(address.id)">{{address.name}}</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="checkout-section">
+      <h2 class="checkout-section-title">New address</h2>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="addressName" class="form-control" [(ngModel)]="addressName">
+      </div>
+      <div class="form-group">
+        <label for="address1">Address Line 1</label>
+        <input type="text" id="address1" class="form-control" [(ngModel)]="addressLine1">
+      </div>
+      <div class="form-group">
+        <label for="address2">Address Line 2</label>
+        <input type="text" id="address2" class="form-control" [(ngModel)]="addressLine2">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" class="form-control" [(ngModel)]="city">
+        </div>
+        <div class="form-group">
+          <label for="state">State/Province/Region</label>
+          <input type="text" id="state" class="form-control" [(ngModel)]="state">
+        </div>
+        <div class="form-group">
+          <label for="zip">ZIP/Postal Code</label>
+          <input type="text" id="zip" class="form-control" [(ngModel)]="zipcode">
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Allow the user to enter credit card details -->
+  <div class="checkout-section">
+    <h2 class="checkout-section-title">Payment Information</h2>
+    <div class="form-group">
+      <label for="cardNumber" class="form-label">Card Number:</label>
+      <input type="text" id="cardNumber" [(ngModel)]="cardNumber" placeholder="1234 5678 9012 3456"
+        class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="cardName" class="form-label">Name on Card:</label>
+      <input type="text" id="cardName" [(ngModel)]="cardName" placeholder="John Doe" class="form-control">
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 form-group">
+        <label for="cardExpiry" class="form-label">Expiration Date:</label>
+        <input type="text" id="cardExpiry" [(ngModel)]="cardExpiry" placeholder="MM/YY" class="form-control">
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="cardCvv" class="form-label">CVV:</label>
+        <input type="text" id="cardCvv" [(ngModel)]="cardCvv" placeholder="123" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <!-- Show all items in the user's cart and their total price -->
+  <div class="checkout-section">
+    <h2 class="checkout-section-title">Order Summary</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price * item.quantity | currency }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total:</strong></td>
+          <td></td>
+          <td><strong>{{ totalPrice | currency }}</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Allow the user to submit their order -->
+  <button (click)="submitOrder()" class="btn btn-primary">
+    Submit Order
+  </button>
+</div>
