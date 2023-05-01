@@ -125,7 +125,7 @@ export class CartService {
     return this.httpClient.get('/api/cart', this.authHeader);
   }
 
-  placeOrder(pickup: boolean, addressId: string, address: object, paymentInformation: object): Observable<any> {
+  placeOrder(pickup: boolean, addressId: string, address: object, paymentInformation: object, promoId?: string): Observable<any> {
     if (!this.authHeader) {
       this.authHeader = this.getAuthHeader()
     }
@@ -133,7 +133,8 @@ export class CartService {
     let body: any = {
       'pickup': pickup,
       'address': address,
-      'payment': paymentInformation
+      'payment': paymentInformation,
+      'promo_id': promoId
     }
  
     if (addressId && addressId.length > 0) {
@@ -149,5 +150,13 @@ export class CartService {
     }
 
     return this.httpClient.get('/api/order', this.authHeader)
+  }
+
+  checkPromoCode(promo: string): Observable<any> {
+    if (!this.authHeader) {
+      this.authHeader = this.getAuthHeader()
+    }
+
+    return this.httpClient.get(`/api/promo/${promo}`, this.authHeader);
   }
 }

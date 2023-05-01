@@ -79,6 +79,11 @@
     </div>
   </div>
 
+  <div class="promo-code-container">
+    <input type="text" placeholder="Promo Code" class="promo-code-input" [(ngModel)]="promoCode">
+    <button class="promo-code-button" (click)="checkPromoCode()">Check Promo Code</button>
+  </div>
+
   <!-- Show all items in the user's cart and their total price -->
   <div class="checkout-section">
     <h2 class="checkout-section-title">Order Summary</h2>

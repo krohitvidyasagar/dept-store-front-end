@@ -37,6 +37,8 @@ export class CheckoutComponent implements OnInit {
   selectedAddress = {};
   isFormValid = false;
   cartSubscription: Subscription | undefined;
+  promoCode!: string;
+  promoId!: string;
 
 
   constructor(private cartService: CartService, private userService: UserService, private router: Router,  private _snackBar: MatSnackBar) {
@@ -81,7 +83,7 @@ export class CheckoutComponent implements OnInit {
 
     let pickpUp = (this.deliveryOption === 'pickup')? true: false;
 
-    this.cartService.placeOrder(pickpUp, this.addressId, address, paymentInfo).subscribe((response) => {
+    this.cartService.placeOrder(pickpUp, this.addressId, address, paymentInfo, this.promoId).subscribe((response) => {
       this.router.navigateByUrl('/orders');
 
       this.cartService.clearCart();
@@ -91,6 +93,20 @@ export class CheckoutComponent implements OnInit {
         data: response['order_number']
       });
     })
+  }
+
+  checkPromoCode() {
+    this.cartService.checkPromoCode(this.promoCode).subscribe((response) => {
+      this.promoId = response['id'];
+
+      let discount = response['percentage'];
+
+      let discountAmount = (discount/100) * this.totalPrice;
+      this.totalPrice = this.totalPrice - discountAmount;
+      
+    }, (error) => {
+      window.alert('Invalid Promo Code');
+    });
   }
 
 }
