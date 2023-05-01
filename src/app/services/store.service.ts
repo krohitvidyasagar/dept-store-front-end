@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { ProductDetails } from '../models/product.model';
@@ -9,6 +9,7 @@ import { ProductDetails } from '../models/product.model';
 export class StoreService {
 
   private _productNameSource = new Subject<string>();
+  authHeader: any;
 
   productName$ = this._productNameSource.asObservable();
   
@@ -30,7 +31,33 @@ export class StoreService {
     this._productNameSource.next(productName);
   }
 
-  getProductDetails(productId: number): Observable<ProductDetails> {
+  getProductDetails(productId: string): Observable<ProductDetails> {
     return this.httpClient.get<ProductDetails>(`api/product/${productId}`);
+  }
+
+  getAuthHeader() {
+    let authToken = sessionStorage.getItem('access');
+      
+      let headers_object = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + authToken
+      })
+
+      return {
+        headers: headers_object
+      }
+  }
+
+  addProductReview(productId: string, rating: number, review: string) {
+    if (!this.authHeader) {
+      this.authHeader = this.getAuthHeader()
+    }
+
+    let body = {
+      'rating': +rating,
+      'review': review
+    }
+
+    return this.httpClient.post(`/api/product/${productId}/review`, body, this.authHeader);
   }
 }

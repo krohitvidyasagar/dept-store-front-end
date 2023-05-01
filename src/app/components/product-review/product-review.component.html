@@ -1,0 +1,49 @@
+<div class="container">
+    <h1 class="text-center mb-5">{{ productDetails.name }} Reviews</h1>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <img src="{{ productDetails.image }}" alt="{{ productDetails.name }}" class="img-fluid">
+        </div>
+        <div class="col-md-8 mb-4">
+            <p>{{ productDetails.description }}</p>
+            <p>Avg Rating: {{ productDetails.average_rating }}</p>
+            <p>Price: {{ productDetails.price }}</p>
+            <!-- <p>Stock Quantity: {{ product.stock_quantity }}</p> -->
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Reviews</h2>
+            <ul class="list-unstyled">
+                <li *ngFor="let review of reviews">
+                    <h3>{{ review.user.first_name }}</h3>
+                    <p>{{ review.review }}</p>
+                    <p>Rating: {{ review.rating }}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4" *ngIf="user">
+            <h2>Add a Review</h2>
+            <form (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="body">Review</label>
+                    <textarea class="form-control" id="body" name="body" [(ngModel)]="newReview"
+                        required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <select class="form-control" id="rating" name="rating" [(ngModel)]="newRating" required>
+                        <option value="5">5 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="2">2 stars</option>
+                        <option value="1">1 star</option>
+                    </select>
+                </div>
+                <br />
+                <button class="my-button" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
