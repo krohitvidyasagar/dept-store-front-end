@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 
 @Component({
@@ -10,9 +11,13 @@ export class ProductBoxComponent {
   @Input() product: any;
   @Output() addToCart = new EventEmitter();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   onAddToCart(): void {
     this.addToCart.emit(this.product);
+  }
+
+  navigateToProductReviews(productId: string): void {
+    this.router.navigate(['/product', productId]);
   }
 }

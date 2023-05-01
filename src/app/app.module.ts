@@ -51,6 +51,7 @@ import { UserService } from './services/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { ProductReviewComponent } from './components/product-review/product-review.component';
 
 
 registerLocaleData(en);
@@ -67,7 +68,8 @@ registerLocaleData(en);
     LoginComponent,
     RegistrationComponent,
     CheckoutComponent,
-    OrdersComponent
+    OrdersComponent,
+    ProductReviewComponent
   ],
   imports: [
     BrowserModule,

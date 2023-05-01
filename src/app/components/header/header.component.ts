@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { StoreService } from 'src/app/services/store.service';
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit {
       .reduce((prev, curent) => prev + curent, 0);
   }
 
-  constructor(private cartService: CartService, private storeService: StoreService, private userService: UserService) {}
+  constructor(private cartService: CartService, private storeService: StoreService, private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.userService.user$.subscribe(() => { 
@@ -53,5 +54,11 @@ export class HeaderComponent implements OnInit {
   onKey(event: any): void {
     let productName = (event.target as HTMLInputElement).value
     this.storeService.searchProducts(productName);
+  }
+
+  onLogout() {
+    sessionStorage.clear();
+    location.reload();
+    this.router.navigateByUrl('/');
   }
 }
