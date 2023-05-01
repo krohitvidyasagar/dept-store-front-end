@@ -14,14 +14,29 @@ export class CartService {
 
   constructor(private _snackBar: MatSnackBar, private httpClient: HttpClient) {}
 
+  checkValidCart(item: CartItem): boolean {
+    const items = [...this.cart.value.items];
+
+    const itemInCart = items.find((_item) => _item.id === item.id);
+
+    if (itemInCart && itemInCart.stock_quantity === 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   addToCart(item: CartItem): void {
     const items = [...this.cart.value.items];
 
     const itemInCart = items.find((_item) => _item.id === item.id);
     if (itemInCart) {
       itemInCart.quantity += 1;
-    } else {
+      itemInCart.stock_quantity -= 1;
+    }  else {
+      item.stock_quantity -= 1
       items.push(item);
+
     }
 
     this.cart.next({ items });

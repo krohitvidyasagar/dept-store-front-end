@@ -10,7 +10,7 @@
 
   <a mat-button routerLink="/login" *ngIf="!user">Login</a>
   <a mat-button routerLink="/orders" *ngIf="user">{{user}}</a>
-  <button *ngIf="user" (click)="onLogout()">Logout</button>
+  <button *ngIf="user" (click)="onLogout()"><small>Logout</small></button>
 
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon

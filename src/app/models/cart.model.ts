@@ -8,4 +8,5 @@ export interface CartItem {
   price: number;
   quantity: number;
   id: number;
+  stock_quantity: number;
 }

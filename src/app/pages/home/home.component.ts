@@ -64,13 +64,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onAddToCart(product: Product): void {
-    this.cartService.addToCart({
+    let cartItem = {
       product: product.image,
       name: product.name,
       price: product.price,
       quantity: 1,
       id: product.id,
-    });
+      stock_quantity: product.stock_quantity
+    }
+
+    if (this.cartService.checkValidCart(cartItem)) {
+      this.cartService.addToCart(cartItem);
+    } else {
+      window.alert('Stock not available')
+    }
   }
 
   ngOnDestroy(): void {
