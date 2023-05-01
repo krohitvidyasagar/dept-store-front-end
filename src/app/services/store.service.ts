@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { ProductDetails } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,9 @@ export class StoreService {
 
   searchProducts(productName: string) {
     this._productNameSource.next(productName);
+  }
+
+  getProductDetails(productId: number): Observable<ProductDetails> {
+    return this.httpClient.get<ProductDetails>(`api/product/${productId}`);
   }
 }
